@@ -11,7 +11,7 @@ display_height = 600
 black = (0,0,0)
 white = (255,255,255)
 
-player_width  = 60
+player_width  = 40
 
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 
@@ -27,13 +27,13 @@ vulpia_w = pygame.image.load('vulpia_w.png')
 
 
 def player(x,y,stance):
-    gameDisplay.blit(pygame.transform.scale(stance,(60,81)),(x,y))
+    gameDisplay.blit(pygame.transform.scale(stance,(40,54)),(x,y))
 
 def title_screen():
     screen = True
     while screen:
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -43,7 +43,8 @@ def title_screen():
             TextRect.center = ((display_width / 2), (display_height / 2))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
-            clock.tick(15)
+            time.sleep(5)
+            game_loop()
 def text_objects(text,font):
     textsurf = font.render(text,True,black)
     return textsurf, textsurf.get_rect()
@@ -123,16 +124,16 @@ def game_loop():
                     x_change=0
                 if event.key == pygame.K_w or event.key == pygame.K_s:
                     y_change=0
-        x += x_change
+        x = (x+x_change)%(display_width+100)
         y += y_change
         gameDisplay.fill(white)
 
         if x > display_width-player_width or x < 0:
             room += 1
-
+            gameDisplay.fill(black)
 
         if y > display_height-player_width or y<0 :
-            y -= y_change
+            y += y_change
         player(x,y,stance)
         pygame.display.update()
 
@@ -141,5 +142,3 @@ title_screen()
 game_loop()
 pygame.quit()
 quit()
-
-
