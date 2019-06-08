@@ -132,8 +132,8 @@ def game_loop():
             room += 1
             gameDisplay.fill(black)
 
-        if y > display_height-player_width or y<0 :
-            y += y_change
+        if y > display_height-player_width or y<0+player_width :
+            y -= y_change
         player(x,y,stance)
         pygame.display.update()
 
