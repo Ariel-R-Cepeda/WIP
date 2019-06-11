@@ -1,7 +1,7 @@
 import pygame
 import time
 import random
-import pandas as pd
+#import pandas as pd
 
 pygame.init()
 
@@ -10,6 +10,8 @@ display_height = 600
 
 black = (0,0,0)
 white = (255,255,255)
+red = (255,0,0)
+green = (0,200,0)
 
 player_width  = 40
 
@@ -70,22 +72,31 @@ def game_intro():
 
     while intro:
         for event in pygame.event.get():
-            print(event)
+            #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
         gameDisplay.fill(white)
-        largeText = pygame.font.Font('freesansbold.ttf', 115)
-        TextSurf, TextRect = text_objects("A bit Racey", largeText)
+        largeText = pygame.font.Font('freesansbold.ttf', 100)
+        TextSurf, TextRect = text_objects("A Generic RPG", largeText)
         TextRect.center = ((display_width / 2), (display_height / 2))
         gameDisplay.blit(TextSurf, TextRect)
 
-        pygame.draw.rect(gameDisplay, 'button.png', (150, 450, 100, 50))
-        pygame.draw.rect(gameDisplay, 'button.png', (550, 450, 100, 50))
+        pygame.draw.rect(gameDisplay, red, (150, 450, 100, 50))
+        pygame.draw.rect(gameDisplay, green, (550, 450, 100, 50))
 
         pygame.display.update()
         clock.tick(15)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            posx= pos[0]
+            posy= pos[1]
+            if posx >= 150 and posx<=250 and posy <= 500 and posy >= 450:
+                pygame.quit()
+                quit()
+            if posx >= 550 and posx<=650 and posy <= 500 and posy >= 450:
+                game_loop()
 
 def game_loop():
     x= (display_width*0.45)
@@ -138,7 +149,7 @@ def game_loop():
         pygame.display.update()
 
         clock.tick(60)
-title_screen()
+game_intro()
 game_loop()
 pygame.quit()
 quit()
