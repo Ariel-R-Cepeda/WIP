@@ -47,13 +47,13 @@ def title_screen():
             pygame.display.update()
             time.sleep(2)
             game_intro()
-def text_objects(text,font):
-    textsurf = font.render(text,True,black)
+def text_objects(text,font,color):
+    textsurf = font.render(text,True,color)
     return textsurf, textsurf.get_rect()
 
-def message_display(text):
+def message_display(text,color):
     largetext = pygame.font.Font('freesansbold.ttf',115)
-    textsurface, textrectangle = text_objects(text,largetext)
+    textsurface, textrectangle = text_objects(text,largetext,color)
     textrectangle.center = ((display_width/2),(display_height/2))
     gameDisplay.blit(textsurface,textrectangle)
 
@@ -98,6 +98,7 @@ def game_intro():
             if posx >= 550 and posx<=650 and posy <= 500 and posy >= 450:
                 game_loop()
 
+def dialogue(text):
 
 def game_loop():
     x= (display_width*0.45)
