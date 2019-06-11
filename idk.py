@@ -12,6 +12,7 @@ black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 green = (0,200,0)
+dark_purple = (165, 167, 186)
 
 player_width  = 40
 
@@ -24,7 +25,7 @@ vulpia_a = pygame.image.load('vulpia_a.png')
 vulpia_s = pygame.image.load('vulpia_s.png')
 vulpia_d = pygame.image.load('vulpia_d.png')
 vulpia_w = pygame.image.load('vulpia_w.png')
-
+title = pygame.image.load('forest.jpg')
 
 
 
@@ -40,31 +41,27 @@ def title_screen():
                 pygame.quit()
                 quit()
             gameDisplay.fill(white)
-            largeText = pygame.font.Font('freesansbold.ttf', 50)
-            TextSurf, TextRect = text_objects("Made by Lunaarii", largeText)
-            TextRect.center = ((display_width / 2), (display_height / 2))
-            gameDisplay.blit(TextSurf, TextRect)
-            pygame.display.update()
-            time.sleep(2)
+            message_display('Made by Lunaarii',black,50,((display_width/2),(display_height/2)),True,2)
             game_intro()
 def text_objects(text,font,color):
     textsurf = font.render(text,True,color)
     return textsurf, textsurf.get_rect()
 
-def message_display(text,color):
-    largetext = pygame.font.Font('freesansbold.ttf',115)
+def message_display(text,color,size,dest,timesleep,tim):
+    largetext = pygame.font.Font('freesansbold.ttf',size)
     textsurface, textrectangle = text_objects(text,largetext,color)
-    textrectangle.center = ((display_width/2),(display_height/2))
+    textrectangle.center = (dest[0],dest[1])
     gameDisplay.blit(textsurface,textrectangle)
 
     pygame.display.update()
+    if timesleep == True:
+        time.sleep(tim)
 
-    time.sleep(2)
 
-    game_loop()
 
-def defeated():
-    message_display('Game Over')
+
+#def defeated():
+
 
 
 def game_intro():
@@ -72,19 +69,15 @@ def game_intro():
 
     while intro:
         for event in pygame.event.get():
-            #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
 
-        gameDisplay.fill(white)
-        largeText = pygame.font.Font('freesansbold.ttf', 100)
-        TextSurf, TextRect = text_objects("A Generic RPG", largeText)
-        TextRect.center = ((display_width / 2), (display_height / 2))
-        gameDisplay.blit(TextSurf, TextRect)
+        gameDisplay.blit(title,(0,0))
 
-        pygame.draw.rect(gameDisplay, red, (150, 450, 100, 50))
-        pygame.draw.rect(gameDisplay, green, (550, 450, 100, 50))
+
+        pygame.draw.rect(gameDisplay, dark_purple, (150, 450, 100, 50))
+        pygame.draw.rect(gameDisplay, dark_purple, (550, 450, 100, 50))
 
         pygame.display.update()
         clock.tick(15)
