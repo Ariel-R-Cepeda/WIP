@@ -98,7 +98,7 @@ def game_intro():
             if posx >= 550 and posx<=650 and posy <= 500 and posy >= 450:
                 game_loop()
 
-def dialogue(text):
+#def dialogue(text):
 
 def game_loop():
     x= (display_width*0.45)
