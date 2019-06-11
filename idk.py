@@ -40,13 +40,13 @@ def title_screen():
                 pygame.quit()
                 quit()
             gameDisplay.fill(white)
-            largeText = pygame.font.Font('freesansbold.ttf', 100)
-            TextSurf, TextRect = text_objects("A Generic RPG", largeText)
+            largeText = pygame.font.Font('freesansbold.ttf', 50)
+            TextSurf, TextRect = text_objects("Made by Lunaarii", largeText)
             TextRect.center = ((display_width / 2), (display_height / 2))
             gameDisplay.blit(TextSurf, TextRect)
             pygame.display.update()
-            time.sleep(5)
-            game_loop()
+            time.sleep(2)
+            game_intro()
 def text_objects(text,font):
     textsurf = font.render(text,True,black)
     return textsurf, textsurf.get_rect()
@@ -98,6 +98,7 @@ def game_intro():
             if posx >= 550 and posx<=650 and posy <= 500 and posy >= 450:
                 game_loop()
 
+
 def game_loop():
     x= (display_width*0.45)
     y =(display_height*0.8)
@@ -116,16 +117,16 @@ def game_loop():
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_a:
-                    x_change = -4
+                    x_change = -3
                     stance = vulpia_a
                 if event.key == pygame.K_d:
-                    x_change = 4
+                    x_change = 3
                     stance = vulpia_d
                 if event.key == pygame.K_w:
-                    y_change = -4
+                    y_change = -3
                     stance = vulpia_w
                 if event.key == pygame.K_s:
-                    y_change = 4
+                    y_change = 3
                     stance = vulpia_s
 
 
@@ -149,6 +150,7 @@ def game_loop():
         pygame.display.update()
 
         clock.tick(60)
+title_screen()
 game_intro()
 game_loop()
 pygame.quit()
