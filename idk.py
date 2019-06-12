@@ -163,15 +163,15 @@ class MyGame:
                 if event.type == pg.QUIT:
                     pg.quit()
                     quit()
-                if self.gender == True:
                 pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
-                self.screen.blit(self.main
+                self.sprite1=pg.image.load(self.main_model+'1_S.png')
+                self.screen.blit(self.sprite1,())
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
-                self.screen.blit(self.main_model + '2_S')
+                self.sprite2 = pg.image.load(self.main_model + '2_S.png')
                 pg.draw.rect(self.screen, self.light_purple, (150, 150, 100, 50))
-                self.screen.blit(self.main_model + '3_S')
+                self.sprite3 = pg.image.load(self.main_model + '3_S.png')
                 pg.draw.rect(self.screen, self.light_purple, (550, 150, 100, 50))
-                self.screen.blit(self.main_model + '4_S')
+                self.sprite4 = pg.image.load(self.main_model + '4_S.png')
                 pg.display.flip()
                 self.clock.tick(15)
                 if event.type == pg.MOUSEBUTTONDOWN:
