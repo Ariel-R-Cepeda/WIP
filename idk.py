@@ -12,7 +12,7 @@ class MyGame:
         self.screen = pg.display.set_mode((self.width,self.height))
         self.gamename= pg.display.set_caption('A Generic RPG')
         self.title_picture = pg.image.load('forest.jpg')
-        self.void = pg.image.load('')
+        self.void = pg.image.load('pixel_void.png')
         self.clock = pg.time.Clock()
         self.event = pg.event.wait()
         self.black = (0,0,0)
@@ -21,26 +21,48 @@ class MyGame:
         self.green = (0,200,0)
         self.light_purple = (165,167,186)
         self.dark_purple = (52,54,73)
-
+        self.bg = self.void
+        self.player_name = None
+        self.main_model = None
+        self.alldia =['Press space to read dialogue','???: Hello? Can you hear me?','???: Good. We have no time to waste.','???: the world is in desperate need for a hero','???: <insert story here>','???: Now tell me, are you a boy or girl?','???: Next, what do you look like?','???: and finally, what is your name?',f'Ah, {self.player_name} what a nice name.','???: Well, off you go now. The world is waiting.',f'???: I opened a one-way portal, good luck.',"Wolf Guard: What are you doing trespassing in Lykos's Forest!","Wolf Guard: Lykos has a zero-tolerance policy...",'wolf Guard: ..you will have to be punished.','Wolf Guard: You seem new around here...', 'Wolf Guard: do you want to know what the punishment is?','Wolf Guard: The death penalty','???: Hey!']
 
     def draw(self,text,color,size,location):
-        font = pg.font.Font(None,size)
+        font = pg.font.Font("freesansbold.ttf",size)
         message = font.render(text,True,color)
         self.screen.blit(message,location)
         pg.display.flip()
 
     def dialogue(self,text):
-        while True:
+        intro = True
+        stuff = False
+        stuff2 = False
+        while intro:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     pg.quit()
                     quit()
                 elif event.type == pg.KEYDOWN:
                     if event.key == pg.K_SPACE:
-                        break
-            pg.draw.rect(self.screen, self.dark_purple, (50, 500, 700, 200))
-            self.draw(text, self.white, 13, (150, 525))
-            self.draw('Press space to continue',self.white,10,(400,750))
+                        if event.key == pg.K_SPACE and text == 5 and stuff != True:
+                            stuff = True
+                            pg.display.flip()
+                            self.choose_gender()
+                        if event.key == pg.K_SPACE and text == 6 and stuff2 != True:
+                            stuff2 = True
+                            pg.display.flip()
+                            self.choose_sprite():
+
+                        else:
+                            self.screen.blit(self.bg,(0,0))
+                            pg.display.update()
+                            text += 1
+                            self.dialogue(text)
+
+
+                else:
+                    pg.draw.rect(self.screen, self.dark_purple, (50, 500, 700, 200))
+                    self.draw(self.alldia[text], self.white, 20, (150, 525))
+
 
 
 
@@ -79,9 +101,9 @@ class MyGame:
                 self.screen.blit(self.title_picture, (0, 0))
 
                 pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
-                self.draw("Exit", self.black, 20, (200, 475))
+                self.draw("Exit", self.black, 20, (180, 475))
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
-                self.draw('Start', self.black, 20, (600, 475))
+                self.draw('Start', self.black, 20, (580, 475))
                 pg.display.update()
                 self.clock.tick(15)
                 if event.type == pg.MOUSEBUTTONDOWN:
@@ -92,10 +114,71 @@ class MyGame:
                         pg.quit()
                         quit()
                     if posx >= 550 and posx <= 650 and posy <= 500 and posy >= 450:
-                        pg.display.flip()
-                        self.choose_name()
+                        self.void_plc()
 
-    def choose_name(self):
+    def void_plc(self):
+        intro = True
+
+        while intro:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+            pg.display.flip()
+            self.screen.blit(self.void, (0,0))
+            self.dialogue(0)
+
+    def choose_gender(self):
+        intro = True
+
+        while intro:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
+                self.draw("Male", self.black, 20, (180, 475))
+                pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
+                self.draw('Female', self.black, 20, (580, 475))
+                pg.display.flip()
+                self.clock.tick(15)
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    pos = pg.mouse.get_pos()
+                    posx = pos[0]
+                    posy = pos[1]
+                    if posx >= 150 and posx <= 250 and posy <= 500 and posy >= 450:
+                        self.main_model='Main_'+'M'
+                    if posx >= 550 and posx <= 650 and posy <= 500 and posy >= 450:
+                        self.main_model='Main_'+'F'
+                    self.dialogue(6)
+
+    def choose_sprite(self):
+        intro = True
+
+        while intro:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
+                self.screen.blit(self.main_model+'1_S')
+                pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
+                self.screen.blit(self.main_model + '2_S')
+                pg.draw.rect(self.screen, self.light_purple, (150, 150, 100, 50))
+                self.screen.blit(self.main_model + '3_S')
+                pg.draw.rect(self.screen, self.light_purple, (550, 150, 100, 50))
+                self.screen.blit(self.main_model + '4_S')
+                pg.display.flip()
+                self.clock.tick(15)
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    pos = pg.mouse.get_pos()
+                    posx = pos[0]
+                    posy = pos[1]
+                    if posx >= 150 and posx <= 250 and posy <= 500 and posy >= 450:
+                        self.main_model = 'Main_' + 'M'
+                    if posx >= 550 and posx <= 650 and posy <= 500 and posy >= 450:
+                        self.main_model = 'Main_' + 'F'
+                    self.dialogue(6)
 
 
 
