@@ -23,9 +23,8 @@ class MyGame:
         self.dark_purple = (52,54,73)
         self.bg = self.void
         self.player_name = None
-        self.main_model = None
-        self.gender = None
-        self.alldia =['Press space to read dialogue','???: Hello? Can you hear me?','???: Good. We have no time to waste.','???: the world is in desperate need for a hero','???: <insert story here>','???: Now tell me, are you a boy or girl?','???: Next, what do you look like?','???: and finally, what is your name?',f'Ah, {self.player_name} what a nice name.','???: Well, off you go now. The world is waiting.',f'???: I opened a one-way portal, good luck.',"Wolf Guard: What are you doing trespassing in Lykos's Forest!","Wolf Guard: Lykos has a zero-tolerance policy...",'wolf Guard: ..you will have to be punished.','Wolf Guard: You seem new around here...', 'Wolf Guard: do you want to know what the punishment is?','Wolf Guard: The death penalty','???: Hey!']
+        self.main_model = ''
+        self.alldia =['Press space to read dialogue','???: Hello? Can you hear me?','???: Good. We have no time to waste.','???: the world is in desperate need for a hero','???: <insert story here>','???: Now tell me, are you a boy or girl? (click)','???: Next, what do you look like?','???: and finally, what is your name?',f'Ah, {self.player_name} what a nice name.','???: Well, off you go now. The world is waiting.',f'???: I opened a one-way portal, good luck.',"Wolf Guard: What are you doing trespassing in Lykos's Forest!","Wolf Guard: Lykos has a zero-tolerance policy...",'wolf Guard: ..you will have to be punished.','Wolf Guard: You seem new around here...', 'Wolf Guard: do you want to know what the punishment is?','Wolf Guard: The death penalty','???: Hey!']
 
     def draw(self,text,color,size,location):
         font = pg.font.Font("freesansbold.ttf",size)
@@ -106,7 +105,7 @@ class MyGame:
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
                 self.draw('Start', self.black, 20, (580, 475))
                 pg.display.update()
-                self.clock.tick(15)
+                #self.clock.tick(15)
                 if event.type == pg.MOUSEBUTTONDOWN:
                     pos = pg.mouse.get_pos()
                     posx = pos[0]
@@ -140,7 +139,7 @@ class MyGame:
                 pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
                 self.draw("Male", self.black, 20, (180, 475))
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
-                self.draw('Female', self.black, 20, (580, 475))
+                self.draw('Female', self.black, 20, (570, 475))
                 pg.display.flip()
                 self.clock.tick(15)
                 if event.type == pg.MOUSEBUTTONDOWN:
@@ -149,11 +148,10 @@ class MyGame:
                     posy = pos[1]
                     if posx >= 150 and posx <= 250 and posy <= 500 and posy >= 450:
                         self.main_model='Main_'+'M'
-                        self.gender = True
+                        self.dialogue(6)
                     if posx >= 550 and posx <= 650 and posy <= 500 and posy >= 450:
                         self.main_model='Main_'+'F'
-                        self.gender = False
-                    self.dialogue(6)
+                        self.dialogue(6)
 
     def choose_sprite(self):
         intro = True
@@ -164,17 +162,17 @@ class MyGame:
                     pg.quit()
                     quit()
                 pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
-                self.sprite1=pg.image.load(self.main_model+'1_S.png')
-                self.screen.blit(self.sprite1,(150,450))
+                self.sprite1 = pg.image.load(self.main_model+'1_S.png')
+                self.screen.blit(self.sprite1,(190,460))
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
                 self.sprite2 = pg.image.load(self.main_model + '2_S.png')
-                self.screen.blit(self.sprite2, (550, 450))
+                self.screen.blit(self.sprite2, (590, 460))
                 pg.draw.rect(self.screen, self.light_purple, (150, 150, 100, 50))
                 self.sprite3 = pg.image.load(self.main_model + '3_S.png')
-                self.screen.blit(self.sprite3, (150, 150))
+                self.screen.blit(self.sprite3, (190, 160))
                 pg.draw.rect(self.screen, self.light_purple, (550, 150, 100, 50))
                 self.sprite4 = pg.image.load(self.main_model + '4_S.png')
-                self.screen.blit(self.sprite4, (550, 150))
+                self.screen.blit(self.sprite4, (590, 160))
                 pg.display.flip()
                 self.clock.tick(15)
                 if event.type == pg.MOUSEBUTTONDOWN:
