@@ -24,6 +24,7 @@ class MyGame:
         self.bg = self.void
         self.player_name = None
         self.main_model = None
+        self.gender = None
         self.alldia =['Press space to read dialogue','???: Hello? Can you hear me?','???: Good. We have no time to waste.','???: the world is in desperate need for a hero','???: <insert story here>','???: Now tell me, are you a boy or girl?','???: Next, what do you look like?','???: and finally, what is your name?',f'Ah, {self.player_name} what a nice name.','???: Well, off you go now. The world is waiting.',f'???: I opened a one-way portal, good luck.',"Wolf Guard: What are you doing trespassing in Lykos's Forest!","Wolf Guard: Lykos has a zero-tolerance policy...",'wolf Guard: ..you will have to be punished.','Wolf Guard: You seem new around here...', 'Wolf Guard: do you want to know what the punishment is?','Wolf Guard: The death penalty','???: Hey!']
 
     def draw(self,text,color,size,location):
@@ -50,7 +51,7 @@ class MyGame:
                         if event.key == pg.K_SPACE and text == 6 and stuff2 != True:
                             stuff2 = True
                             pg.display.flip()
-                            self.choose_sprite():
+                            self.choose_sprite()
 
                         else:
                             self.screen.blit(self.bg,(0,0))
@@ -148,8 +149,10 @@ class MyGame:
                     posy = pos[1]
                     if posx >= 150 and posx <= 250 and posy <= 500 and posy >= 450:
                         self.main_model='Main_'+'M'
+                        self.gender = True
                     if posx >= 550 and posx <= 650 and posy <= 500 and posy >= 450:
                         self.main_model='Main_'+'F'
+                        self.gender = False
                     self.dialogue(6)
 
     def choose_sprite(self):
@@ -160,8 +163,9 @@ class MyGame:
                 if event.type == pg.QUIT:
                     pg.quit()
                     quit()
+                if self.gender == True:
                 pg.draw.rect(self.screen, self.light_purple, (150, 450, 100, 50))
-                self.screen.blit(self.main_model+'1_S')
+                self.screen.blit(self.main
                 pg.draw.rect(self.screen, self.light_purple, (550, 450, 100, 50))
                 self.screen.blit(self.main_model + '2_S')
                 pg.draw.rect(self.screen, self.light_purple, (150, 150, 100, 50))
